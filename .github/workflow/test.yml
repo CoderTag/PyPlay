@@ -1,0 +1,65 @@
+# .github/workflows/test.yml
+name: Automation Tests
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  schedule:
+    - cron: '0 0 * * *'  # Daily at midnight
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        browser: [chromium, firefox, webkit]
+        env: [staging]
+        include:
+          - browser: chromium
+            env: staging
+            tags: "smoke"
+          - browser: chromium
+            env: staging
+            tags: "regression"
+            
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.10'
+        
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+        playwright install
+        
+    - name: Run tests
+      run: |
+        python run_tests.py --browser ${{ matrix.browser }} --env ${{ matrix.env }} --headless --tags ${{ matrix.tags }} --report allure
+      env:
+        BROWSERSTACK_USERNAME: ${{ secrets.BROWSERSTACK_USERNAME }}
+        BROWSERSTACK_ACCESS_KEY: ${{ secrets.BROWSERSTACK_ACCESS_KEY }}
+        TESTIM_API_URL: ${{ secrets.TESTIM_API_URL }}
+        TESTIM_PROJECT_ID: ${{ secrets.TESTIM_PROJECT_ID }}
+        TESTIM_API_TOKEN: ${{ secrets.TESTIM_API_TOKEN }}
+        
+    - name: Generate Allure Report
+      uses: simple-elf/allure-report-action@master
+      with:
+        allure_results: reports/allure_reports
+        allure_report: reports/allure_html
+        allure_history: allure-history
+        
+    - name: Upload test results
+      uses: actions/upload-artifact@v3
+      with:
+        name: test-results-${{ matrix.browser }}-${{ matrix.env }}
+        path: |
+          reports/
+          videos/
+          screenshots/

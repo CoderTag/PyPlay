@@ -1,0 +1,14 @@
+{
+    "base_url": "https://staging.example.com",
+    "api_base_url": "https://api.staging.example.com",
+    "users": {
+      "valid_user": {
+        "username": "test_user",
+        "password": "test_password"
+      },
+      "admin_user": {
+        "username": "admin_user",
+        "password": "admin_password"
+      }
+    }
+  }
