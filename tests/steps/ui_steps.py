@@ -10,7 +10,7 @@ import logging
 logger = logging.getLogger(__name__)
 
 # Configuration constants
-class BPConfig:
+class PyPlayConfig:
     BP_SHORT_WAIT_TIMEOUT = 10000  # in milliseconds
     BP_STANDARD_WAIT_TIMEOUT = 30000  # in milliseconds
 
