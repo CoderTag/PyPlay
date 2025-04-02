@@ -1,0 +1,30 @@
+OPENAI_API_KEY="YOUR TOKEN"
+HUGGINGFACEHUB_API_TOKEN="YOUR TOKEN"
+ENV="dev"
+
+# Log levels: DEBUG, INFO, WARNING, ERROR, CRITICAL
+LOG_LEVEL=INFO                # Default level for all logs
+CONSOLE_LOG_LEVEL=INFO        # Level for console output
+FILE_LOG_LEVEL=DEBUG          # Level for file output
+
+# Log file configuration
+LOG_DIR=logs                  # Directory to store log files
+LOG_MAX_FILE_SIZE=10485760    # Maximum size of log file in bytes (10MB)
+LOG_BACKUP_COUNT=5            # Number of backup files to keep
+
+# Format configuration
+LOG_JSON_FORMAT=false         # Set to true for JSON formatted logs
+
+# Async logging
+ASYNC_LOGGING=true            # Enable async logging for better performance
+
+# Set different environments 
+# For example: in your deployment scripts or CI/CD pipeline
+# ENVIRONMENT=production
+# ENVIRONMENT=development
+# ENVIRONMENT=testing
+
+# In production, use:
+# LOG_LEVEL=WARNING
+# CONSOLE_LOG_LEVEL=ERROR
+# FILE_LOG_LEVEL=WARNING

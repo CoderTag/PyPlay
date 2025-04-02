@@ -77,6 +77,14 @@ Options
 --report: Report type (html or allure)
 ```
 
+8. Different way of running tests
+```bash
+python run_tests.py --tags "smoke"
+python run_tests.py --tags "web and smoke"
+python run_tests.py --tags "smoke or regression"
+
+Tags are registered in your pytest.ini file and used in feature file.
+```
 8. Project Structure
 ```bash
 automation-framework/

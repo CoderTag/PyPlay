@@ -51,82 +51,82 @@ class PlaywrightGenerics:
         self.page = page
         self.capabilities = {}  # This would be populated with browser info
 
-    def is_android(self):
+    async def is_android(self):
         """Check if the current platform is Android"""
         return self.capabilities.get('platformName', '').lower() == 'android'
     
-    def is_mobile(self):
+    async def is_mobile(self):
         """Check if the current platform is mobile"""
-        return self.is_android() or (self.capabilities.get('platformName', '').lower() == 'ios')
+        return await self.is_android() or (self.capabilities.get('platformName', '').lower() == 'ios')
     
-    def get_element(self, selector):
+    async def get_element(self, selector):
         """Get element by selector"""
-        return self.page.locator(selector).first
+        return await self.page.locator(selector).first
     
-    def get_elements(self, selector):
+    async def get_elements(self, selector):
         """Get elements by selector"""
-        return self.page.locator(selector).all()
+        return await self.page.locator(selector).all()
     
-    def click(self, selector, max_wait_time=None):
+    async def click(self, selector, max_wait_time=None):
         """Click on element with wait"""
         wait_time = max_wait_time if max_wait_time else BPConfig.BP_SHORT_WAIT_TIMEOUT
         locator = self.page.locator(selector)
         
         logger.info(f"Clicking on element: {selector}")
         # Wait for the element to be visible and stable
-        locator.wait_for(timeout=wait_time)
-        locator.click()
+        await locator.wait_for(timeout=wait_time)
+        await locator.click()
     
-    def double_click(self, selector):
+    async def double_click(self, selector):
         """Double click on element"""
         locator = self.page.locator(selector)
-        locator.wait_for()
-        locator.dblclick()
+        await locator.wait_for()
+        await locator.dblclick()
     
-    def click_by_action(self, selector):
+    async def click_by_action(self, selector):
         """Click on element using JavaScript"""
-        self.page.locator(selector).evaluate("el => el.click()")
+        await self.page.locator(selector).evaluate("el => el.click()")
     
-    def is_element_visible(self, selector, timeout=None):
+    async def is_element_visible(self, selector, timeout=None):
         """Check if element is visible"""
         wait_time = timeout * 1000 if timeout else BPConfig.BP_SHORT_WAIT_TIMEOUT
         try:
-            self.page.locator(selector).wait_for(state="visible", timeout=wait_time)
+            await self.page.locator(selector).wait_for(state="visible", timeout=wait_time)
             return True
         except:
             return False
     
-    def press_key(self, key):
+    async def press_key(self, key):
         """Press a key"""
-        self.page.keyboard.press(key)
+        await self.page.keyboard.press(key)
     
-    def press_key_on_element(self, selector, key):
+    async def press_key_on_element(self, selector, key):
         """Focus on element and press a key"""
-        self.page.locator(selector).focus()
-        self.page.keyboard.press(key)
+        await self.page.locator(selector).focus()
+        await self.page.keyboard.press(key)
     
-    def click_with_percentage(self, page, selector, x_percentage, y_percentage):
+    async def click_with_percentage(self, page, selector, x_percentage, y_percentage):
         """Click at position calculated as percentage of element size"""
         element = self.page.locator(selector)
-        element.wait_for()
+        await element.wait_for()
         
         # Get element's bounding box
-        bbox = element.bounding_box()
+        bbox = await element.bounding_box()
         
         # Calculate position
         x = bbox["x"] + (bbox["width"] * int(x_percentage) / 100)
         y = bbox["y"] + (bbox["height"] * int(y_percentage) / 100)
         
         # Click at the calculated position
-        self.page.mouse.click(x, y)
+        await self.page.mouse.click(x, y)
     
-    def tap_corner_of_element(self, page, corner, selector):
+    async def tap_corner_of_element(self, page, corner, selector):
         """Tap on a corner of an element"""
         element = self.page.locator(selector)
-        element.wait_for()
+        await element.wait_for()
         
         # Get element's bounding box
-        bbox = element.bounding_box()
+        bbox = await element.bounding_box()
         
         # Calculate position based on corner
         if corner == "TOP_LEFT":
@@ -143,31 +143,31 @@ class PlaywrightGenerics:
             y = bbox["y"] + bbox["height"] - 5
         
         # Click at the calculated position
-        self.page.mouse.click(x, y)
+        await self.page.mouse.click(x, y)
     
-    def long_tap(self, page, selector):
+    async def long_tap(self, page, selector):
         """Long press on element"""
         element = self.page.locator(selector)
-        element.wait_for()
+        await element.wait_for()
         
         # Get element's bounding box for center calculation
-        bbox = element.bounding_box()
+        bbox = await element.bounding_box()
         x = bbox["x"] + bbox["width"] / 2
         y = bbox["y"] + bbox["height"] / 2
         
         # Long press (700ms)
-        self.page.mouse.down(x, y)
-        self.page.wait_for_timeout(700)
-        self.page.mouse.up(x, y)
+        await self.page.mouse.down(x, y)
+        await self.page.wait_for_timeout(700)
+        await self.page.mouse.up(x, y)
     
-    def tap_with_percentage(self, page, selector, x_percentage, y_percentage):
+    async def tap_with_percentage(self, page, selector, x_percentage, y_percentage):
         """Tap at position calculated as percentage of element size"""
         # Same implementation as click_with_percentage for mobile
-        self.click_with_percentage(page, selector, x_percentage, y_percentage)
+        await self.click_with_percentage(page, selector, x_percentage, y_percentage)
     
-    def back(self):
+    async def back(self):
         """Go back (for mobile)"""
-        self.page.go_back()
+        await self.page.go_back()
 
 class Locators:
     def __init__(self):
