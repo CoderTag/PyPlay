@@ -1,0 +1,35 @@
+# Web Testing Configuration
+web:
+  base_url: https://www.example.com
+  browser:
+    default: chrome
+    headless: true
+    options:
+      chrome:
+        - "--disable-gpu"
+        - "--no-sandbox"
+        - "--disable-dev-shm-usage"
+        - "--window-size=1920,1080"
+      firefox:
+        - "--width=1920"
+        - "--height=1080"
+        - "--headless"
+  
+  selenium_grid:
+    enabled: false
+    hub_url: http://selenium-hub:4444/wd/hub
+  
+  cookies:
+    save_on_exit: true
+    load_on_start: true
+    path: ./data/cookies
+  
+  timeouts:
+    implicit_wait: 10  # seconds
+    explicit_wait: 20  # seconds
+    page_load: 30  # seconds
+    script: 15  # seconds
+    
+  screenshots:
+    take_on_failure: true
+    directory: ./screenshots

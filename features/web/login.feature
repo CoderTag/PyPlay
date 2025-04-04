@@ -1,4 +1,5 @@
 # features/login.feature
+@login
 Feature: User Authentication
   As a user
   I want to be able to log in to the application
@@ -7,6 +8,7 @@ Feature: User Authentication
   Background:
     Given the user is on the login page
 
+  @login
   Scenario: Successful login with valid credentials
     When the user enters username "valid_user"
     And the user enters password "valid_password"

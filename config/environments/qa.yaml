@@ -1,0 +1,46 @@
+# QA Environment Specific Settings
+
+environment_name: "QA"
+
+web:
+  base_url: "https://qa.mywebapp.com"
+  default_timeout: 30 # Longer timeout for potentially slower QA env
+  users:
+    standard_user:
+      username: "qa_user_tester"
+      # Use placeholder for password if sensitive even in QA
+      password_env_var: QA_WEB_STD_USER_PASSWORD
+    admin_user:
+      username: "qa_admin_tester"
+      password_env_var: QA_WEB_ADMIN_USER_PASSWORD
+
+mobile:
+  api_dependency_url: "https://api-qa.mycompany.com/mobile-backend" # QA backend API
+  users:
+    standard_user:
+      username: "qa_mobile_tester"
+      # password_env_var: QA_MOBILE_PASSWORD
+
+api:
+  base_url: "https://api-qa.mycompany.com/api/v1"
+  auth_url: "https://auth-qa.mycompany.com"
+  default_timeout: 20
+  api_keys:
+    # Typically reference env vars for QA keys as well
+    internal_service_key_env_var: QA_INTERNAL_API_KEY
+  credentials:
+    test_user:
+      username: "api_qa_tester"
+      password_env_var: QA_API_TEST_USER_PASSWORD
+    payment_gateway_key_env_var: QA_PAYMENT_API_KEY
+
+# Feature flags specific to QA
+features:
+  new_checkout_flow_enabled: true # Usually matches upcoming prod state
+  beta_feature_xyz_enabled: false # Might be disabled if not ready
+
+# Other QA-specific settings
+database:
+  connection_string_env_var: QA_DB_CONNECTION_STRING
+logging_level: "INFO"
+use_mock_services: false # Usually test against integrated QA services

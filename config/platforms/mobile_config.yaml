@@ -1,0 +1,61 @@
+# Mobile Platform Configuration
+# Contains settings specific to mobile app testing
+
+# Appium settings
+appium:
+  server:
+    host: "localhost"
+    port: 4723
+    path: "/wd/hub"
+    start_appium: true  # Whether to start/stop Appium server automatically
+    appium_wait_timeout: 30  # seconds
+  
+# Default capabilities that apply to all platforms
+default_capabilities:
+  automationName: "UiAutomator2"  # For Android (XCUITest for iOS)
+  newCommandTimeout: 300
+  noReset: false
+  fullReset: false
+  autoGrantPermissions: true
+  
+# Android-specific configuration
+android:
+  app: "path/to/app.apk"  # Can be overridden by environment configs
+  platformVersion: "14"   # Default Android version
+  platformName: "Android"
+  deviceName: "Android Emulator"
+  avd: "Pixel_5_API_30"  # Default emulator to launch if needed
+  appPackage: "com.example.myapp"
+  appActivity: "com.example.myapp.MainActivity"
+  
+# iOS-specific configuration
+ios:
+  app: "path/to/app.ipa"  # Can be overridden by environment configs
+  platformVersion: "16.0"
+  platformName: "iOS"
+  deviceName: "iPhone 14"
+  automationName: "XCUITest"
+  bundleId: "com.example.myapp"
+  xcodeOrgId: "ABCDEF12345"
+  xcodeSigningId: "iPhone Developer"
+  
+# Test execution settings
+test_settings:
+  implicit_wait: 10  # seconds
+  explicit_wait: 20  # seconds
+  swipe_duration: 500  # milliseconds
+  screenshot_on_failure: true
+  record_video: false
+  
+# Device farm settings (if applicable)
+device_farm:
+  provider: "browserstack"  # Options: browserstack, saucelabs, local
+  project_name: "MyApp Automation"
+  build_name: "{env}_{date}"
+  
+# UI settings
+ui:
+  timeout:
+    short: 5   # seconds - for quick elements
+    medium: 15  # seconds - for normal elements
+    long: 30   # seconds - for slow-loading elements

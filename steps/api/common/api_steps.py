@@ -2,7 +2,7 @@
 import json
 import pytest
 from pytest_bdd import given, when, then, parsers
-from api.endpoints import Endpoints
+from steps.api.specific.endpoints import Endpoints
 
 @given("I have a valid auth token")
 def valid_auth_token(api_context, config):

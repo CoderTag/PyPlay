@@ -1,0 +1,54 @@
+# Production Environment Specific Settings
+# *** USE EXTREME CAUTION ***
+# *** NEVER COMMIT REAL PRODUCTION SECRETS HERE ***
+
+environment_name: "Production"
+
+web:
+  base_url: "https://www.mywebapp.com"
+  default_timeout: 45 # Potentially longer timeout for prod resilience
+  users:
+    # Use dedicated, limited-permission test accounts for Prod testing (if allowed/necessary)
+    # ALWAYS load credentials securely
+    standard_user:
+      username: "prod_test_user" # Example: Read-only test user
+      password_env_var: PROD_WEB_TEST_USER_PASSWORD # LOAD FROM ENV VAR/SECRETS MANAGER
+    admin_user:
+      # Avoid using real admin accounts for testing in prod if possible
+      # If necessary, use highly secured test admin credentials
+      username: "prod_test_admin"
+      password_env_var: PROD_WEB_TEST_ADMIN_PASSWORD # LOAD FROM ENV VAR/SECRETS MANAGER
+
+mobile:
+  api_dependency_url: "https://api.mycompany.com/mobile-backend" # Production backend API
+  users:
+    standard_user:
+      username: "prod_mobile_test_user"
+      # password_env_var: PROD_MOBILE_PASSWORD
+
+api:
+  base_url: "https://api.mycompany.com/api/v1"
+  auth_url: "https://auth.mycompany.com"
+  default_timeout: 30
+  api_keys:
+    # Reference environment variables or secrets manager paths
+    internal_service_key_env_var: PROD_INTERNAL_API_KEY
+  credentials:
+    test_user:
+      # Dedicated, possibly rate-limited test user for prod API checks
+      username: "api_prod_test_user"
+      password_env_var: PROD_API_TEST_USER_PASSWORD
+    # Critical keys MUST come from secure sources
+    payment_gateway_key_env_var: PROD_PAYMENT_API_KEY
+
+# Feature flags for Production (reflect live state)
+features:
+  new_checkout_flow_enabled: true
+  beta_feature_xyz_enabled: false
+
+# Other Prod-specific settings
+database:
+  # Connection string for Prod DB (use with extreme caution, ideally read-only access for tests)
+  connection_string_env_var: PROD_DB_READONLY_CONNECTION_STRING
+logging_level: "WARNING" # Less verbose logging in Prod
+use_mock_services: false

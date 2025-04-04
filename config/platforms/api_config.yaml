@@ -1,0 +1,46 @@
+# API Platform Configuration
+# Contains settings specific to API testing
+
+# Request defaults
+request_defaults:
+  timeout: 30  # Default timeout in seconds
+  retry:
+    max_attempts: 3
+    backoff_factor: 0.5
+  verify_ssl: true
+
+# Authentication settings
+auth:
+  token_endpoint: "/auth/token"
+  refresh_endpoint: "/auth/refresh"
+  token_storage: "memory"  # Options: memory, file, keychain
+  
+# Default headers for all API requests
+default_headers:
+  Accept: "application/json"
+  Content-Type: "application/json"
+  User-Agent: "Automation-Framework/1.0"
+
+# API service endpoints
+endpoints:
+  user: "/api/v1/users"
+  products: "/api/v1/products"
+  orders: "/api/v1/orders"
+  search: "/api/v1/search"
+  
+# Schema validation settings
+schema_validation:
+  enabled: true
+  strict_mode: false  # Fail on additional properties
+  schema_directory: "resources/schemas"
+
+# Performance thresholds
+performance:
+  response_time_warning: 1000  # ms
+  response_time_critical: 3000  # ms
+  
+# Rate limiting settings
+rate_limiting:
+  enabled: true
+  max_requests_per_minute: 60
+  retry_after_limit: true

@@ -1,0 +1,82 @@
+# Common Configuration
+# Settings shared across all platforms and environments
+
+# Project settings
+project:
+  name: "Multi-Platform Automation Framework"
+  version: "1.0.0"
+  description: "Cross-platform testing framework for web, mobile, and API testing"
+
+# General timeouts (in seconds)
+timeouts:
+  default: 10
+  short: 5
+  medium: 15
+  long: 30
+
+# Reporting settings
+reporting:
+  screenshot_on_failure: true
+  screenshot_on_step: false
+  video_recording: false
+  html_report: true
+  allure:
+    enabled: true
+    results_directory: "allure-results"
+    clear_directory: true
+  jira:
+    enabled: false
+    project: "AUTO"
+    create_tickets: false
+    update_tickets: true
+
+# Logging configuration
+logging:
+  level: "INFO"  # DEBUG, INFO, WARNING, ERROR, CRITICAL
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file:
+    enabled: true
+    path: "logs/automation.log"
+    max_size_mb: 10
+    backup_count: 5
+  console:
+    enabled: true
+    color: true
+
+# Test data settings
+test_data:
+  data_directory: "resources/test_data"
+  seed_data: true
+  cleanup_after_test: true
+  mocking:
+    enabled: true
+    mode: "record_once"  # record_once, playback, record_all
+
+# User accounts for testing
+users:
+  admin:
+    username: "__ADMIN_USERNAME__"  # Will be replaced from environment config
+    password: "__ADMIN_PASSWORD__"  # Will be replaced from environment config
+  regular:
+    username: "__USER_USERNAME__"   # Will be replaced from environment config
+    password: "__USER_PASSWORD__"   # Will be replaced from environment config
+
+# Feature toggles
+feature_flags:
+  skip_flaky_tests: false
+  parallel_execution: true
+  retry_failed: true
+  max_retries: 2
+  fail_fast: false
+
+# Data generation settings
+data_generation:
+  locale: "en_US"
+  seed: 12345  # Fixed seed for deterministic fake data generation
+  cache_generated_data: true
+
+# CI integration
+ci:
+  provider: "jenkins"  # jenkins, github, gitlab, azure
+  build_number_env_var: "BUILD_NUMBER"
+  branch_name_env_var: "BRANCH_NAME"

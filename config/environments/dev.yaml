@@ -1,0 +1,48 @@
+# Development Environment Specific Settings
+
+environment_name: "Development"
+
+web:
+  base_url: "http://localhost:3000" # Or dev server URL like http://dev.webapp.local
+  default_timeout: 15 # Shorter timeout for faster local feedback
+  users:
+    standard_user:
+      username: "dev_user"
+      password: "dev_password123" # Example: Non-sensitive dev password
+    admin_user:
+      username: "dev_admin"
+      password: "dev_admin_pass" # Example: Non-sensitive dev password
+
+mobile:
+  # Mobile settings might be less env-specific unless backend URLs change
+  api_dependency_url: "http://localhost:8080/mobile-api" # Backend API used by the mobile app
+  users:
+    standard_user:
+      username: "dev_mobile_user"
+      # Password might be shared with web or separate, loaded securely if needed
+      # password_env_var: DEV_MOBILE_PASSWORD
+
+api:
+  base_url: "http://localhost:8080/api/v1" # Local or dev API cluster
+  auth_url: "http://localhost:9000/auth"
+  default_timeout: 10
+  api_keys:
+    # Example: Non-sensitive key for a dev-only service/rate limit
+    internal_service_key: "dev-abc-123-xyz"
+  credentials:
+    test_user:
+      username: "api_dev_user"
+      password: "api_dev_password" # Example: Non-sensitive dev password
+    # Example for sensitive key: reference an environment variable
+    # payment_gateway_key_env_var: DEV_PAYMENT_API_KEY
+
+# Feature flags specific to dev
+features:
+  new_checkout_flow_enabled: true
+  beta_feature_xyz_enabled: true
+
+# Other dev-specific settings
+database:
+  connection_string_env_var: DEV_DB_CONNECTION_STRING # Reference env var
+logging_level: "DEBUG"
+use_mock_services: true
