@@ -1,0 +1,24 @@
+# Locators for the Web Login Page
+
+# Optional: A unique element to quickly identify if we are on the right page
+page_identifier: "#login-form"
+
+# Default locator type can be CSS selector for simplicity
+username_field: "#username"
+login_button: "button[type='submit'].login-button" # Example CSS
+error_message: ".alert.alert-danger"            # Example CSS
+remember_me_checkbox: "#rememberMe"
+login_form: "form[name='loginForm']"
+
+# Explicitly specify type if not CSS
+password_field:
+  type: id # Options: id, name, xpath, css selector, class name, link text, partial link text, tag name
+  value: "passwordInput"
+password_toggle:
+  type: xpath
+  value: "//button[@aria-label='Show password']"
+
+# Define element names used in the accessibility scenario
+username: "#username" # Reusing the key for simplicity, maps to username_field
+password: "#passwordInput" # Maps to password_field
+# login_button: "button[type='submit'].login-button" # Already defined above
