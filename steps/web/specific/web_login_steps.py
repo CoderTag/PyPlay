@@ -17,7 +17,7 @@ async def open_web_page(page_objects, page_name):
 @when(parsers.parse('the user enters "{text}" in the "{field_name}" field'))
 async def enter_text_in_field(page_objects, text, field_name):
     """Enter text in the specified field."""
-    await page_objects["base_page"].enter_text(field_name, text)
+    await page_objects["base_page"].fill(field_name, text)
 
 @when(parsers.parse('the user clicks the "{button_name}" button'))
 async def click_button(page_objects, button_name):
