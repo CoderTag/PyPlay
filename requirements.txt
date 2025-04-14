@@ -43,8 +43,8 @@ googleapis-common-protos>=1.69.2
 greenlet>=3.1.1
 griffe>=1.6.2
 groq>=0.20.0
-grpcio>=1.71.0
-grpcio-status>=1.71.0
+grpcio
+grpcio-status
 h11>=0.14.0
 httpcore>=1.0.7
 httpx>=0.28.1
@@ -96,7 +96,7 @@ posthog>=3.21.0
 primp>=0.14.0
 prompt_toolkit>=3.0.50
 proto-plus>=1.26.1
-protobuf>=5.29.4
+protobuf
 psutil>=7.0.0
 pyasn1>=0.6.1
 pyasn1_modules>=0.4.1
@@ -108,9 +108,6 @@ pydantic-settings>=2.8.1
 pydantic_core>=2.27.2
 pyee>=12.1.1
 Pygments>=2.19.1
-pyobjc-core>=11.0
-pyobjc-framework-Cocoa>=11.0
-pyobjc-framework-SystemConfiguration>=11.0
 PyPAC>=0.16.5
 PySocks>=1.7.1
 pytest>=8.3.5
